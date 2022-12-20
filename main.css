@@ -1,0 +1,304 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+/* 로고가 안 보여서, 임시적으로 배경색 추가. */
+header {
+    position: relative;
+}
+
+/* display (정렬)는 내가 정렬시키고자 하는 아이템의 부모요소 부분에 추가 
+display: flex;  ->  수평 정렬 (왼쪽 정렬) 
+align-items: center;   ->   수직 가운데 정렬
+*/
+
+/* 박스 스타일 */ 
+header .forms input.form-control {
+    color: white;
+    background-color: rgba(255, 255, 255, .15);
+    border-color: rgba(255, 255, 255, .3);
+}
+
+
+/* 힌트 스타일 */
+header .forms input.form-control::placeholder {
+    color: rgba(255, 255, 255, .6)
+}
+
+
+/* 햄버거 BUTTON */
+header [data-bs-toggle="offcanvas"] {
+    /* 화면에 안보이게 */
+    display: none;
+}
+header .offcanvas .list-group-item {
+    padding: 16px;
+}
+header .offcanvas .list-group-item a {
+    color: black;
+    /* text-decoration 속성은 글자에 줄을 긋는 것과 관련된 속성 */
+    text-decoration: none;
+}
+header .offcanvas .list-group-item a:hover {
+    text-decoration: underline;
+}
+/* 화면이 작아지면 나타나게 */
+@media (max-width: 992px) {
+    /* 화면이 작아지면 햄버거 버튼과 로그인 버튼 제일 왼쪽으로 
+    원래 증가너비는 0, 1로 바꾸면 로고가 차지하는 영역이 최대한
+    늘어나면서 버튼을 오른쪽으로 밀어낸다.*/
+    header .logo {
+        flex-grow: 1;
+    }
+
+    /* 화면이 작아지면 내부요소 사라지게 */
+    header .nav,
+    header .forms input.form-control,
+    header .forms .btn-link {
+        display: none;
+    }
+    header [data-bs-toggle="offcanvas"] {
+        display: block;
+    }
+}
+
+
+
+
+
+section.hero {
+    background-color: #040d22;
+    position: relative;
+    overflow: hidden;
+}
+section.hero .container {
+    padding-top: 160px;
+    padding-bottom: 160px;
+    position: relative;
+}
+section.hero .headline h1 {
+    font-size: 68px;
+    font-weight: 700;
+    /* letter-spacing : 글자와 글자 사이의 간격 */
+    letter-spacing: -2px;
+}
+section.hero .headline p {
+    font-size: 26px;
+}
+
+/* 이미지들 배치 */
+section.hero img.globe {
+    width: 900px;
+    /* 부모요소 section.hero에 position: relative; 추가 */
+    position: absolute;
+    top: -5%;
+    left: 46%;
+}
+section.hero img.glow{
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 이렇게 작성하고 보면 헤더 부분이 덮혀 있고, 설명이 짤려 있다.
+section 영역보다 넘치는 부분이 있다.
+
+1. 헤더 끌어올리기
+-> 구조적으로는 head가 section 보다 위. 
+   먼저 작성한게 화면에 제일 먼저 보인다.
+   그래서 이미지들 밑에 head가 덮혀있다.
+   구조를 바꾸는 건 좋은 방법이 아니다.
+   어쩔수 없이 이번에는 바꾼다. 
+   position 값이 있으면 위에 쌓일 수 있다.
+   그래서 section.hero .container에 단순히 기준이 될 수 있는,
+   position: relative; 추가.
+
+
+2. 설명 짤린 부분 위로 올린다.
+
+
+3. section 영역 넘친 부분 자른다. 
+
+
+4. header 부분 색상 제거. 
+   이미 hero 부분에 들어와 있기 때문에, 배경색 필요 없다.
+
+
+5. 아래쪽에 흰색 반원(curve) 추가.   
+
+*/
+section.hero .curve {
+/* 부모요소 section.hero에 position: relative; 있는지 확인 */
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+section.youtube {
+
+}
+section.youtube .container {
+    padding-top: 90px;
+    padding-bottom: 70px;
+    position: relative;
+}
+section.youtube img.astronaut {
+    width: 480px;
+    /* position: absolute;를 사용하기 위해서 
+    기준이 되는 부모요소 필요. 그래서 부모요소에 postion: relative; 추가*/
+    position: absolute;
+    top: -420px;   
+    right: 0; 
+}
+section.youtube .ratio {
+    border-radius: 10px;
+    /* 모서리를 둥글게 만들어도 유튜브 영상은 직사각형.
+    그래서 넘치는 부분 자르기. */
+    overflow: hidden;
+    background-color: black;
+}
+
+/* 유튜브에 있는 우주비행사 사진 768px 이하면 이미지 안보이게 처리 */
+@media (max-width: 768px) {
+    section.youtube img.astronaut {
+        display: none;
+    }
+}
+
+section.features {
+
+}
+section.features .container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+section.features .card {
+    color: #627597;
+    border: none;
+}
+section.features .card img {
+    /* padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 60px;
+    padding-right: 60px; */
+    /* 밑에 처럼 쓰면, 간단. 
+    30px : 위, 아래 / 60px : 좌우 */
+    padding: 30px 60px;
+}
+
+/* 뷰포트가 576px 보다 작으면 카드 이미지들 작아지게 */
+@media (max-width: 576px) {
+    section.features .card img {
+        padding: 20px 30px;
+    }
+}
+
+/* MAP */
+section.map {
+
+}
+section.map .container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    color: #627597;
+}
+section.map h1 {
+    font-size: 44px;
+    font-weight: 700;
+}
+section.map p {
+    font-size: 24px;
+}
+#map {
+    height: 500px;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 10px;
+    /* z-index : 
+    기본적으로 z축이 0 으로 맞춰져 있다.
+    0 보다 큰 값을 입력하면 화면에 보일 때, 
+    다른 요소 보다 위에 쌓는다. (제일 위에 보인다.) */
+    z-index: 1;
+}
+
+/* FOOTER */
+footer {
+    background-color: #040d22;
+    position: relative;
+    margin-top: 20%;
+}
+footer .curve {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    /* transfrom: scale(1, -1) -> -1 = y축 반전* */
+    transform: scale(1, -1);
+}
+footer .container {
+
+}
+footer img.illustration {
+    width: 100%;
+    margin-top: -33%;
+    margin-bottom: 50px;
+    /* 이미지 좌우 반전 transform: scale(x축 크기 비율, y축 크기 비율)
+    두개 값이 같으면 하나의 값만 적을 수 있다.
+    좌우 반전 transfrom: scale(-1, 1) -> -1 = x축 반전*/
+    transform: scale(-1, 1);
+}
+footer img.logo {
+    opacity: .4;
+}
+footer h5 {
+    font-weight: 700;
+    color: rgba(255, 255, 255, .4);
+    margin-bottom: 20px;
+}
+footer ul li {
+    margin-bottom: 10px;
+}
+footer ul li a {
+    color: rgba(255, 255, 255, .4);
+    text-decoration: none;
+    transition: .3s;
+}
+footer ul li a:hover {
+    color: white;
+}
+footer .site-links {
+    margin: 0;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, .05);
+    /* 수평으로 만들기 */
+    display: flex;
+    /* 화면 중앙으로 정렬 */
+    justify-content: center;
+    /* flex-wrap: wrap; -> 줄바꿈 처리 하겠다. (마지막 강의)*/
+    flex-wrap: wrap;
+}
+footer .site-links li {
+    color: rgba(255, 255, 255, .4);
+    /* footer ul li 에서 margin-bottom: 10px 적용해서 여기도 적용.
+    그래서 margin은 초기화  */
+    margin: 0;
+    margin-right: 20px;
+    /* 이렇게 margin-right: 20px를 쓰면 마지막 요소에도 20px 포함. 
+    이걸 제거하기 위해서 초기화 시켜야 한다.*/
+}
+/* 이렇게 해야 정확하게 가운데 정렬 */
+footer .site-links li:last-child {
+    margin-right: 0;
+}
+@media (max-width: 992px) {
+    footer {
+        text-align: center;
+    }
+    footer img.logo {
+        margin-bottom: 50px;
+    }
+}
+
